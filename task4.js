@@ -20,7 +20,7 @@ function divideAndSort(deretAngka) {
     return hasilInteger;
 }
 
-// Contoh penggunaan
+
 let input = 5956560159466056;
 let output = divideAndSort(input);
-console.log(output); // Output: 55566914566956s
+console.log(output); 
