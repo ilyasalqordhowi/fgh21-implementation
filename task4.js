@@ -1,26 +1,48 @@
-function divideAndSort(deretAngka) {
-    // Ubah deretAngka menjadi string
-    let deretAngkaString = deretAngka.toString();
-
-    // Pisahkan string berdasarkan angka 0 (nol)
-    let potonganBilangan = deretAngkaString.split('0');
-
-    // Untuk setiap potongan bilangan, urutkan karakternya
-    for (let i = 0; i < potonganBilangan.length; i++) {
-        potonganBilangan[i] = potonganBilangan[i].split('').sort().join('');
+function divideAndSort(num) {
+  
+    let numStr = String(num);
+    let arr = [];
+    let menyimpanString = "";
+  
+    for (let i = 0; i < numStr.length; i++) {
+        if (numStr[i] === '0') {
+            if (menyimpanString.length > 0) {
+               arr[arr.length] = menyimpanString;
+                menyimpanString = "";
+            }
+        } else {
+            menyimpanString += numStr[i];
+        }
     }
 
-    // Gabungkan semua potongan bilangan yang telah diurutkan kembali menjadi satu string
-    let hasilGabungan = potonganBilangan.join('');
+    if (menyimpanString.length > 0) {
+       arr[arr.length] = menyimpanString;
+    }
 
-    // Ubah string hasil penggabungan menjadi integer
-    let hasilInteger = parseInt(hasilGabungan);
 
-    // Kembalikan hasilInteger sebagai output
-    return hasilInteger;
+    let pengabunganNumberStr = "";
+    for (let i = 0; i < arr.length; i++) {
+        let segmentArray = arr[i].split('');
+        for (let j = 0; j < segmentArray.length - 1; j++) {
+            for (let k = 0; k < segmentArray.length - j - 1; k++) {
+                if (segmentArray[k] > segmentArray[k + 1]) {
+                    let temp = segmentArray[k];
+                    segmentArray[k] = segmentArray[k + 1];
+                    segmentArray[k + 1] = temp;
+                }
+            }
+        }
+        for (let j = 0; j < segmentArray.length; j++) {
+           pengabunganNumberStr += segmentArray[j];
+        }
+    }
+
+    
+    let hasilNumber = parseInt(pengabunganNumberStr, 10);
+
+    return hasilNumber;
 }
 
 
-let input = 5956560159466056;
-let output = divideAndSort(input);
-console.log(output); 
+let result = divideAndSort(5956560159466056);
+console.log(result);
